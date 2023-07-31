@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import "./App.scss";
 import { Dashboard } from "./components/Dashboard";
 import { getCoordsFromQuery, getWeatherData } from "./api/weatherApi";
-import { METRO_CITIES_COORDS, URLS } from "./constants/constants";
+import { METRO_CITIES_COORDS } from "./constants/constants";
 import { addIconURLToData } from "./utils/utils";
 
 function App() {
@@ -35,8 +35,9 @@ function App() {
       ).then((data) => {
         const metroWeather = data.map((item) => {
           addIconURLToData(item);
+          return item;
         });
-        setMetroCitiesWeather(data);
+        setMetroCitiesWeather(metroWeather);
       });
     }
   }, []);
