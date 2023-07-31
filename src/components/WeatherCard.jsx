@@ -6,10 +6,11 @@ export const WeatherCard = (props) => {
   const { weather, handleCardVisibilityToggle, iconURL } = props;
 
   return (
-    <div className="weather-card">
+    <div className="weather-card" data-testid="weather-card">
       <Close
         className="weather-card__close"
-        onClick={handleCardVisibilityToggle}
+        onClick={() => handleCardVisibilityToggle(null)}
+        data-test-id="weather-card-close"
       />
       <div className="weather-card__top">
         <div className="weather-card__left">
@@ -26,6 +27,7 @@ export const WeatherCard = (props) => {
               alt={weather.weather[0].main}
               src={iconURL}
               className="weather-card__icon"
+              data-testid="weather-card-icon"
             />
           </div>
         </div>

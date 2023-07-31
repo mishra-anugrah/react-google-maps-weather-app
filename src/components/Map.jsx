@@ -16,7 +16,11 @@ export const Map = (props) => {
   });
 
   const handleWeatherCardDisplay = (index) => {
-    if (visibleWeatherCardIndex !== null && visibleWeatherCardIndex > -2) {
+    if (
+      visibleWeatherCardIndex !== null &&
+      index === null &&
+      visibleWeatherCardIndex > -2
+    ) {
       setVisibleWeatherCardIndex(null);
     } else {
       setVisibleWeatherCardIndex(index);

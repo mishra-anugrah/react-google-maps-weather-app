@@ -17,10 +17,11 @@ export const SearchBar = (props) => {
   };
 
   return (
-    <div className="search">
+    <div className="search" data-testid="search-bar">
       <TextField
         variant="outlined"
         placeholder="Search here"
+        data-testid="search-bar-input"
         value={searchQuery}
         onChange={handleSearchQueryChange}
         onKeyPress={handleKeyPress}
