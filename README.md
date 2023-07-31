@@ -1,4 +1,4 @@
-## Weather App
+## Weather App (React and Google Maps)
 
 - Developed by **Anugrah Mishra**
 - Frontend library : `React.js`
