@@ -1,5 +1,5 @@
 import { URLS } from "../constants/constants";
-import { interpolateURL } from "./utils";
+import { interpolateURL } from "..//utils/utils";
 
 export const getWeatherData = (lat, long) => {
   const url = interpolateURL(URLS.GET_LOCATION_WEATHER, { lat, long });

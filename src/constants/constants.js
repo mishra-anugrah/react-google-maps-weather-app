@@ -20,8 +20,8 @@ export const WIND_DIRECTIONS = [
 export const METRO_CITIES_COORDS = [
   { lat: 28.70406, lng: 77.102493 },
   { lat: 22.572645, lng: 88.363892 },
-  // { lat: 19.075983, lng: 72.877655 },
-  // { lat: 13.08268, lng: 80.270721 },
+  { lat: 19.075983, lng: 72.877655 },
+  { lat: 13.08268, lng: 80.270721 },
 ];
 
 export const URLS = {

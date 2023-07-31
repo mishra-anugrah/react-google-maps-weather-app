@@ -2,17 +2,26 @@ import React, { useState } from "react";
 import { GoogleMap, MarkerF, useLoadScript } from "@react-google-maps/api";
 import { WeatherCard } from "./WeatherCard";
 import { WeatherMarker } from "./WeatherMarker";
+import { MapLoader } from "./MapLoader";
 
 export const Map = (props) => {
   const { currentLocation, weather, metroCitiesWeather } = props;
 
-  const [visibleWeatherCardIndex, setVisibleWeatherCardIndex] = useState(-1);
+  const [visibleWeatherCardIndex, setVisibleWeatherCardIndex] = useState(null);
 
   const defaultCenter = { lat: 28.70406, lng: 77.102493 };
 
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: "AIzaSyCRwF3zr1MCYnmEdoUxQvRiCNuQfa3RvxI",
   });
+
+  const handleWeatherCardDisplay = (index) => {
+    if (visibleWeatherCardIndex !== null && visibleWeatherCardIndex > -2) {
+      setVisibleWeatherCardIndex(null);
+    } else {
+      setVisibleWeatherCardIndex(index);
+    }
+  };
 
   return (
     <div className="map">
@@ -22,33 +31,62 @@ export const Map = (props) => {
           mapContainerClassName="map"
           zoom={5}
         >
-          {metroCitiesWeather.map((item, index) => (
+          {Array.isArray(metroCitiesWeather) &&
+            metroCitiesWeather.length &&
+            metroCitiesWeather.map(
+              (item, index) =>
+                item && (
+                  <MarkerF
+                    position={{ lat: item.coord.lat, lng: item.coord.lon }}
+                    onClick={() => handleWeatherCardDisplay(index)}
+                    icon={item.weather[0].iconURL}
+                    key={index}
+                  >
+                    <WeatherMarker
+                      iconURL={item.weather[0].iconURL}
+                      alt={item.weather[0].main}
+                      temp={item.main.temp}
+                    />
+
+                    {visibleWeatherCardIndex === index && (
+                      <WeatherCard
+                        weather={item}
+                        handleCardVisibilityToggle={() =>
+                          handleWeatherCardDisplay(-2)
+                        }
+                        iconURL={item.weather[0].iconURL}
+                      />
+                    )}
+                  </MarkerF>
+                )
+            )}
+
+          {weather && (
             <MarkerF
-              position={{ lat: item.coord.lat, lng: item.coord.lon }}
-              onClick={() => setVisibleWeatherCardIndex(index)}
-              icon={item.weather[0].iconURL}
-              key={index}
+              position={{ lat: weather.coord.lat, lng: weather.coord.lon }}
+              onClick={() => handleWeatherCardDisplay(-1)}
+              icon={weather.weather[0].iconURL}
             >
               <WeatherMarker
-                iconURL={item.weather[0].iconURL}
-                alt={item.weather[0].main}
-                temp={item.main.temp}
+                iconURL={weather.weather[0].iconURL}
+                alt={weather.weather[0].main}
+                temp={weather.main.temp}
               />
 
-              {visibleWeatherCardIndex === index && (
+              {visibleWeatherCardIndex === -1 && (
                 <WeatherCard
-                  weather={item}
+                  weather={weather}
                   handleCardVisibilityToggle={() =>
-                    setVisibleWeatherCardIndex(-1)
+                    handleWeatherCardDisplay(null)
                   }
-                  iconURL={item.weather[0].iconURL}
+                  iconURL={weather.weather[0].iconURL}
                 />
               )}
             </MarkerF>
-          ))}
+          )}
         </GoogleMap>
       ) : (
-        <div>Loading...</div>
+        <MapLoader />
       )}
     </div>
   );

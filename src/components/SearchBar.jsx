@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import { StandaloneSearchBox, useLoadScript } from "@react-google-maps/api";
 import { IconButton, TextField } from "@mui/material";
 import { SearchOutlined } from "@mui/icons-material";
-import { getCoordsFromQuery } from "../utils/weatherUtils";
+import { getCoordsFromQuery } from "../api/weatherApi";
 
 export const SearchBar = (props) => {
   const { handleFetchLocationWeather } = props;

@@ -1,4 +1,4 @@
-import { WIND_DIRECTIONS } from "../constants/constants";
+import { WIND_DIRECTIONS, URLS } from "../constants/constants";
 
 export const interpolateURL = (url, values) => {
   const { lat, long, daysCount = 10, query, icon } = values;
@@ -14,4 +14,10 @@ export const interpolateURL = (url, values) => {
 export const getWindDirectionFromAngle = (angle) => {
   const val = Math.floor(angle / 22.5 + 0.5);
   return WIND_DIRECTIONS[val % 16];
+};
+
+export const addIconURLToData = (data) => {
+  data.weather[0].iconURL = interpolateURL(URLS.ICON_URL, {
+    icon: data.weather[0].icon,
+  });
 };
