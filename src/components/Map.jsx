@@ -12,7 +12,7 @@ export const Map = (props) => {
   const defaultCenter = { lat: 28.70406, lng: 77.102493 };
 
   const { isLoaded } = useLoadScript({
-    googleMapsApiKey: "AIzaSyCRwF3zr1MCYnmEdoUxQvRiCNuQfa3RvxI",
+    googleMapsApiKey: process.env.REACT_APP_GOOGLE_API_KEY,
   });
 
   const handleWeatherCardDisplay = (index) => {
